@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="feedbackdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblComments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblComments">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comment" Type="varchar" MaxLength="512" />
+          <Property Name="likes" Type="int" />
+          <Property Name="dislikes" Type="int" />
+          <Property Name="postId" Type="bigint" Nullable="false" />
+          <Property Name="created" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblFeedback' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblFeedback">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="bigint" Nullable="false" />
+          <Property Name="commentId" Type="bigint" Nullable="false" />
+          <Property Name="isLiked" Type="bit" />
+          <Property Name="isDisliked" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblPosts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblPosts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="post" Type="varchar" MaxLength="512" />
+          <Property Name="created" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="feedbackdbModelStoreContainer">
+          <EntitySet Name="tblComments" EntityType="Self.tblComments" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblComments].[id] AS [id], 
+    [tblComments].[comment] AS [comment], 
+    [tblComments].[likes] AS [likes], 
+    [tblComments].[dislikes] AS [dislikes], 
+    [tblComments].[postId] AS [postId], 
+    [tblComments].[created] AS [created]
+    FROM [dbo].[tblComments] AS [tblComments]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblFeedback" EntityType="Self.tblFeedback" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblFeedback].[id] AS [id], 
+    [tblFeedback].[userId] AS [userId], 
+    [tblFeedback].[commentId] AS [commentId], 
+    [tblFeedback].[isLiked] AS [isLiked], 
+    [tblFeedback].[isDisliked] AS [isDisliked]
+    FROM [dbo].[tblFeedback] AS [tblFeedback]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblPosts" EntityType="Self.tblPosts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblPosts].[id] AS [id], 
+    [tblPosts].[post] AS [post], 
+    [tblPosts].[created] AS [created]
+    FROM [dbo].[tblPosts] AS [tblPosts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblUser].[id] AS [id], 
+    [tblUser].[username] AS [username]
+    FROM [dbo].[tblUser] AS [tblUser]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="feedbackdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="feedbackdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblComments" EntityType="feedbackdbModel.tblComment" />
+          <EntitySet Name="tblFeedbacks" EntityType="feedbackdbModel.tblFeedback" />
+          <EntitySet Name="tblPosts" EntityType="feedbackdbModel.tblPost" />
+          <EntitySet Name="tblUsers" EntityType="feedbackdbModel.tblUser" />
+        </EntityContainer>
+        <EntityType Name="tblComment">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comment" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="likes" Type="Int32" />
+          <Property Name="dislikes" Type="Int32" />
+          <Property Name="postId" Type="Int64" Nullable="false" />
+          <Property Name="created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblFeedback">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+          <Property Name="commentId" Type="Int64" Nullable="false" />
+          <Property Name="isLiked" Type="Boolean" />
+          <Property Name="isDisliked" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblPost">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="post" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="feedbackdbModelStoreContainer" CdmEntityContainer="feedbackdbEntities">
+          <EntitySetMapping Name="tblComments">
+            <EntityTypeMapping TypeName="feedbackdbModel.tblComment">
+              <MappingFragment StoreEntitySet="tblComments">
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="postId" ColumnName="postId" />
+                <ScalarProperty Name="dislikes" ColumnName="dislikes" />
+                <ScalarProperty Name="likes" ColumnName="likes" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFeedbacks">
+            <EntityTypeMapping TypeName="feedbackdbModel.tblFeedback">
+              <MappingFragment StoreEntitySet="tblFeedback">
+                <ScalarProperty Name="isDisliked" ColumnName="isDisliked" />
+                <ScalarProperty Name="isLiked" ColumnName="isLiked" />
+                <ScalarProperty Name="commentId" ColumnName="commentId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPosts">
+            <EntityTypeMapping TypeName="feedbackdbModel.tblPost">
+              <MappingFragment StoreEntitySet="tblPosts">
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="post" ColumnName="post" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="feedbackdbModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

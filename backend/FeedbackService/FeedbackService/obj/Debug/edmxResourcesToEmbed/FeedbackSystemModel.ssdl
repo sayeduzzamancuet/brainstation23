@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="feedbackdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblComments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblComments">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="postId" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="comment" Type="varchar" MaxLength="512" />
+    <Property Name="likes" Type="int" />
+    <Property Name="dislikes" Type="int" />
+    <Property Name="postId" Type="bigint" Nullable="false" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblFeedback' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblFeedback">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="userId" />
+      <PropertyRef Name="commentId" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="bigint" Nullable="false" />
+    <Property Name="commentId" Type="bigint" Nullable="false" />
+    <Property Name="isLiked" Type="bit" />
+    <Property Name="isDisliked" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblPosts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblPosts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="post" Type="varchar" MaxLength="512" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'feedbackdb.dbo.tblUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="feedbackdbModelStoreContainer">
+    <EntitySet Name="tblComments" EntityType="Self.tblComments" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblComments].[id] AS [id], 
+    [tblComments].[comment] AS [comment], 
+    [tblComments].[likes] AS [likes], 
+    [tblComments].[dislikes] AS [dislikes], 
+    [tblComments].[postId] AS [postId], 
+    [tblComments].[created] AS [created]
+    FROM [dbo].[tblComments] AS [tblComments]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tblFeedback" EntityType="Self.tblFeedback" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblFeedback].[id] AS [id], 
+    [tblFeedback].[userId] AS [userId], 
+    [tblFeedback].[commentId] AS [commentId], 
+    [tblFeedback].[isLiked] AS [isLiked], 
+    [tblFeedback].[isDisliked] AS [isDisliked]
+    FROM [dbo].[tblFeedback] AS [tblFeedback]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tblPosts" EntityType="Self.tblPosts" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblPosts].[id] AS [id], 
+    [tblPosts].[post] AS [post], 
+    [tblPosts].[created] AS [created]
+    FROM [dbo].[tblPosts] AS [tblPosts]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblUser].[id] AS [id], 
+    [tblUser].[username] AS [username]
+    FROM [dbo].[tblUser] AS [tblUser]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
